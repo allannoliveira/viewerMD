@@ -1,0 +1,205 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1f2328;
+  --muted: #59636e;
+  --border: #d1d9e0;
+  --surface: #f6f8fa;
+  --accent: #0969da;
+  --bar-bg: rgba(255, 255, 255, 0.85);
+}
+:root[data-theme="dark"] {
+  --bg: #0d1117;
+  --fg: #e6edf3;
+  --muted: #9198a1;
+  --border: #3d444d;
+  --surface: #151b23;
+  --accent: #4493f8;
+  --bar-bg: rgba(13, 17, 23, 0.85);
+}
+
+html { scroll-padding-top: 64px; }
+
+body.mdv {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+}
+
+/* ---------- Barra superior ---------- */
+.mdv-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 16px;
+  background: var(--bar-bg);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.mdv-title { font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mdv-spacer { flex: 1; }
+.mdv-btn {
+  background: var(--surface);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.mdv-btn:hover { border-color: var(--accent); }
+
+/* ---------- Layout ---------- */
+.mdv-layout { display: flex; }
+.mdv-toc {
+  position: sticky;
+  top: 48px;
+  align-self: flex-start;
+  width: 260px;
+  flex-shrink: 0;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding: 24px 12px 24px 16px;
+  box-sizing: border-box;
+  border-right: 1px solid var(--border);
+  font-size: 13px;
+}
+.mdv-toc a {
+  display: block;
+  padding: 3px 8px;
+  color: var(--muted);
+  text-decoration: none;
+  border-radius: 4px;
+}
+.mdv-toc a:hover { color: var(--fg); background: var(--surface); }
+.mdv-toc .mdv-toc-h1 { font-weight: 600; color: var(--fg); }
+.mdv-toc .mdv-toc-h3 { padding-left: 20px; }
+.mdv-toc .mdv-toc-h4 { padding-left: 32px; }
+body.mdv-toc-hidden .mdv-toc,
+body.mdv-no-toc .mdv-toc,
+body.mdv-no-toc #mdv-toc-btn { display: none; }
+
+.mdv-main { flex: 1; min-width: 0; }
+.mdv-content, .mdv-raw {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 32px 32px 96px;
+  box-sizing: border-box;
+}
+.mdv-raw {
+  white-space: pre-wrap;
+  font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@media (max-width: 900px) {
+  .mdv-toc { display: none; }
+  .mdv-content, .mdv-raw { padding: 24px 16px 64px; }
+}
+
+/* ---------- Conteúdo markdown ---------- */
+.mdv-content > :first-child { margin-top: 0; }
+.mdv-content h1, .mdv-content h2, .mdv-content h3,
+.mdv-content h4, .mdv-content h5, .mdv-content h6 {
+  margin: 1.5em 0 0.6em;
+  line-height: 1.25;
+  font-weight: 600;
+}
+.mdv-content h1 { font-size: 2em; padding-bottom: 0.3em; border-bottom: 1px solid var(--border); }
+.mdv-content h2 { font-size: 1.5em; padding-bottom: 0.3em; border-bottom: 1px solid var(--border); }
+.mdv-content h3 { font-size: 1.25em; }
+.mdv-content h6 { color: var(--muted); }
+.mdv-content p, .mdv-content ul, .mdv-content ol,
+.mdv-content blockquote, .mdv-content table, .mdv-content pre { margin: 0 0 1em; }
+.mdv-content a { color: var(--accent); text-decoration: none; }
+.mdv-content a:hover { text-decoration: underline; }
+.mdv-content img { max-width: 100%; border-radius: 4px; }
+.mdv-content hr { border: 0; height: 2px; background: var(--border); margin: 2em 0; }
+.mdv-content ul, .mdv-content ol { padding-left: 2em; }
+.mdv-content li + li { margin-top: 0.25em; }
+.mdv-content li:has(> input[type="checkbox"]) { list-style: none; margin-left: -1.4em; }
+.mdv-content input[type="checkbox"] { margin-right: 0.4em; }
+
+.mdv-content blockquote {
+  padding: 0 1em;
+  color: var(--muted);
+  border-left: 4px solid var(--border);
+}
+
+.mdv-content code {
+  font: 85%/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  background: var(--surface);
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+}
+.mdv-content pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+}
+.mdv-content pre code { background: none; padding: 0; font-size: 13px; }
+.mdv-content pre code.hljs { background: none; padding: 0; }
+
+.mdv-content table { border-collapse: collapse; display: block; overflow-x: auto; max-width: 100%; }
+.mdv-content th, .mdv-content td { border: 1px solid var(--border); padding: 6px 13px; }
+.mdv-content th { font-weight: 600; background: var(--surface); }
+.mdv-content tr:nth-child(2n) td { background: var(--surface); }
+
+/* ---------- Indicador "ao vivo" ---------- */
+.mdv-live {
+  font-size: 12px;
+  color: #1a7f37;
+  white-space: nowrap;
+}
+:root[data-theme="dark"] .mdv-live { color: #3fb950; }
+
+/* ---------- Diagramas Mermaid ---------- */
+.mdv-mermaid {
+  margin: 0 0 1em;
+  text-align: center;
+  overflow-x: auto;
+}
+.mdv-mermaid svg { max-width: 100%; height: auto; }
+.mdv-mm-dark { display: none; }
+:root[data-theme="dark"] .mdv-mm-light { display: none; }
+:root[data-theme="dark"] .mdv-mm-dark { display: block; }
+.mdv-mermaid-error {
+  text-align: left;
+  white-space: pre-wrap;
+  font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: #cf222e;
+  background: var(--surface);
+  border: 1px solid #cf222e;
+  border-radius: 6px;
+  padding: 12px 16px;
+}
+
+/* ---------- Impressão / PDF ---------- */
+@page { margin: 18mm 16mm; }
+@media print {
+  :root, :root[data-theme="dark"] {
+    --bg: #ffffff;
+    --fg: #1f2328;
+    --muted: #59636e;
+    --border: #d1d9e0;
+    --surface: #f6f8fa;
+    --accent: #0969da;
+  }
+  .mdv-bar, .mdv-toc { display: none !important; }
+  :root[data-theme="dark"] .mdv-mm-light { display: block; }
+  :root[data-theme="dark"] .mdv-mm-dark { display: none; }
+  body.mdv { font-size: 12pt; }
+  .mdv-content { max-width: none; padding: 0; }
+  .mdv-content pre, .mdv-content pre code { white-space: pre-wrap; word-break: break-word; }
+  .mdv-content pre, .mdv-content table, .mdv-content img,
+  .mdv-content blockquote, .mdv-mermaid { break-inside: avoid; }
+  .mdv-content h1, .mdv-content h2, .mdv-content h3, .mdv-content h4 { break-after: avoid; }
+  .mdv-content a { color: inherit; text-decoration: underline; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
